@@ -163,7 +163,7 @@ python hyperlax/cli.py generate-hp-samples \
 
 ![Benchmark Results](benchmark_results/benchmark_best_found_return_distribution_combined.png)
 
-[Benchmarked Hyperparam Sweep/Sampling Configs](hyperlax/configs/algo/benchmarked/01_static_qmc_sampling_S64) is the directory containing the algorithm configurations used for benchmarking. We sample 64 hyperparameter sets using the QMC method (no search). The benchmark data are stored under [benchmark_results](benchmark_results/).
+[hyperlax/configs/algo/benchmarked/01_static_qmc_sampling_S64](hyperlax/configs/algo/benchmarked/01_static_qmc_sampling_S64) is the directory containing the algorithm configurations used for benchmarking. We sample 64 hyperparameter sets using the QMC method (no search). The benchmark data are stored under [benchmark_results](benchmark_results/).
 
 The hyperparameter distributions are chosen so that algorithms sharing the same parameters also share the same distributions. This provides an unbiased setup (as much as possible) and allows us to assess hyperparameter sensitivity.
 
