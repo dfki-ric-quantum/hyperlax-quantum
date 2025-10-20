@@ -1,0 +1,191 @@
+# ==============================================================================
+# Build System Configuration (PEP 517)
+# ==============================================================================
+# Specifies how the project should be built. Setuptools is a standard choice.
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+
+# ==============================================================================
+# Project Metadata (PEP 621)
+# ==============================================================================
+# This section replaces the need for a setup.py or setup.cfg for metadata.
+[project]
+name = "hyperlax"
+version = "0.1.0"
+description = "A unified JAX-based framework for high-throughput classical and quantum reinforcement learning."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+
+authors = [
+    { name = "Ugur Bolat", email = "ugur.bolat@dfki.de" }
+]
+
+maintainers = [
+    { name = "Ugur Bolat", email = "ugur.bolat@dfki.de" }
+]
+
+# Project dependencies are listed here.
+# NOTE: JAX is intentionally NOT listed here because its installation is hardware-specific (CPU vs CUDA).
+# The user must install the correct version of JAX separately as instructed in the README.
+dependencies = [
+    "brax==0.10.3",
+    "chex==0.1.87",
+    "colorama",
+    "craftax==1.4.5",
+    "distrax==0.1.5",
+    "flashbax==0.1.3",
+    "flax==0.8.4",
+    "gymnax==0.0.9",
+    "huggingface-hub==0.32.1",
+    "jaxmarl==0.0.7",
+    "jumanji==1.0.0",
+    "mctx==0.0.5",
+    "numpy<2.0",
+    "optax==0.2.5",
+    "orbax-checkpoint==0.6.4",
+    "pgx==2.6.0",
+    "pandas==2.2.3",
+    "protobuf==3.20.2",
+    "tensorboard_logger==0.1.0",
+    "tensorflow_probability==0.25.0",
+    "xminigrid==0.9.1",
+    "PennyLane==0.37.0",
+    "PennyLane_Lightning==0.37.0",
+    "scikit-learn==1.7.1",
+    "tensornetwork==0.4.6",
+    "plotly==6.1.1",
+    "kaleido",
+    "nvitop==1.5.2",
+    "tyro==0.9.27",
+    "tabulate==0.9.0",
+    "optuna==4.4.0",
+    "rliable==1.2.0",
+    "seaborn==0.13.2",
+    "autoray==0.7.1",
+]
+
+# Optional dependencies, e.g., for development and testing.
+# Install with: pip install .[dev]
+[project.optional-dependencies]
+dev = [
+    "autoflake",
+    "black==24.3.0",
+    "ruff", # Modern replacement for flake8, isort, etc.
+    "coverage",
+    "importlib-metadata<5.0",
+    "livereload",
+    "mkdocs==1.2.3",
+    "mkdocs-git-revision-date-plugin",
+    "mkdocs-include-markdown-plugin",
+    "mkdocs-material==8.2.7",
+    "mkdocs-mermaid2-plugin==0.6.0",
+    "mkdocstrings==0.18.0",
+    "mknotebooks==0.7.1",
+    "mypy==0.991",
+    "nbmake",
+    "pre-commit==3.3.3",
+    "promise",
+    "pymdown-extensions",
+    "pytest==7.0.1",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-parallel",
+    "pytest-xdist",
+    "pytype",
+    "testfixtures",
+]
+
+# Defines console scripts. `hyperlax` will become a command-line executable.
+[project.scripts]
+hyperlax = "hyperlax.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/your-org/hyperlax" # TODO: Update this URL
+Repository = "https://github.com/your-org/hyperlax" # TODO: Update this URL
+
+
+# ==============================================================================
+# Tool Configurations
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Black Code Formatter
+# ------------------------------------------------------------------------------
+# Although Ruff can format, Black is still the de-facto standard.
+# You can choose to use only `ruff format` instead.
+[tool.black]
+line-length = 120
+target-version = ['py310']
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+# ------------------------------------------------------------------------------
+# Ruff Linter & Formatter
+# ------------------------------------------------------------------------------
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+exclude = [
+    ".bzr", ".direnv", ".eggs", ".git", ".hg", ".mypy_cache", ".nox", ".pants.d",
+    ".ruff_cache", ".svn", ".tox", ".venv", "__pypackages__", "_build", "buck-out",
+    "build", "dist", "node_modules", "venv",
+]
+
+[tool.ruff.lint]
+# Select rule codes to enable. A good starting set includes:
+# E/W: pycodestyle errors and warnings
+# F: Pyflakes
+# I: isort (import sorting)
+# UP: pyupgrade (modernize Python code)
+# B: flake8-bugbear (finds likely bugs)
+select = ["E", "W", "F", "I", "UP", "B"]
+ignore = []
+
+[tool.ruff.format]
+# Use Ruff's formatter, which is compatible with Black.
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+
+# ------------------------------------------------------------------------------
+# Mypy Type Checker
+# ------------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true # Essential for libs without full type stubs (e.g., jax, pennylane)
+disallow_untyped_defs = true   # Enforce type hints on all function definitions
+warn_return_any = true         # Warn about functions that implicitly return 'Any'
+warn_unused_ignores = true
+exclude = ["venv", ".venv", "docs"]
+markers = ["slow: marks tests as long (deselect with '-m \"not long\"')"]
+
+# ------------------------------------------------------------------------------
+# Pytest Test Runner
+# ------------------------------------------------------------------------------
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = ["tests"]
+python_files = "test_*.py"
+# -ra: show extra test summary info for all but passed tests
+# --import-mode=importlib: helps with Python path issues in modern projects
+addopts = "-ra --import-mode=importlib"
+
+[tool.setuptools]
+packages = ["hyperlax"]

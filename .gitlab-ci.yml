@@ -1,0 +1,40 @@
+# Set the default Docker image for all jobs in this pipeline.
+default:
+  image: python:3.10
+
+# Define a variable to ensure pip uses the cached directory
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+# Cache the pip download directory to speed up subsequent runs
+cache:
+  key:
+    files:
+      - pyproject.toml # Caching based on the lock file is most accurate
+  paths:
+    - .cache/pip
+
+# This before_script block will run before the script in EVERY job below.
+before_script:
+  - echo "Installing dependencies for CPU..."
+  # Install the project and its 'dev' dependencies from pyproject.toml
+  - pip install -e ".[dev]"
+  # Explicitly install the CPU version of JAX
+  - echo "Installing JAX for CPU..."
+  - pip install -U "jax[cpu]==0.4.28"
+
+lint-job:
+  allow_failure: true # This job will not fail the pipeline
+  script:
+    - echo "Running Ruff linter (non-blocking)..."
+    # F: Pyflakes (catches real bugs), E9: Syntax errors
+    - ruff check . --select F,E9
+
+test-job:
+  script:
+    - echo "Running tests on CPU backend..."
+    - pytest tests/
+
+include:
+  - project: 'build_server/gitlab_ci_includes'
+    file: 'software_catalogue.yml'

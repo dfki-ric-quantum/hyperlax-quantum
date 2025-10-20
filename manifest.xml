@@ -1,0 +1,20 @@
+<package>
+  <description brief="Benchmarking Quantum Reinforcement Learning with hyperlax.">
+   hyperlax is a JAX-based framework for high-throughput reinforcement learning, designed to benchmark and optimize both classical and quantum machine learning models.
+  </description>
+  <author>Ugur Bolat/Ugur.Bolat@dfki.de</author>
+  <maintainer>Ugur Bolat/Ugur.Bolat@dfki.de</maintainer>
+  <license>Copyright DFKI GmbH, Robotics Innovation Center</license>
+  <url>https://git.hb.dfki.de/quantum/quber-ki/hyperlax</url>
+  <logo>none</logo>
+  <keywords>
+    <keyword>learning</keyword>
+  </keywords>
+  <stage>1</stage>
+  <use>single project</use>
+  <activity>active</activity>
+  <classifiers>
+    <classifier>python</classifier>
+    <classifier>jax</classifier>
+  </classifiers>
+</package>
