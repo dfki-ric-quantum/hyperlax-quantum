@@ -33,8 +33,8 @@ pip install -U "jax[cpu]==0.4.28"
 Install hyperlax and its dependencies:
 ``` shell
 git clone git@github.com:dfki-ric-quantum/hyperlax-quantum.git
-cd hyperlax
-pip install -e '.[dev]'
+cd hyperlax-quantum
+pip install -e '.' # or `'.[dev]'
 ```
 
 ### Container (Optional)
