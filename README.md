@@ -69,7 +69,7 @@ python hyperlax/cli.py sweep-hp-samples \
 
 After the run completes, you'll find all results, logs, and metrics in the `results/quickstart_classical/ppo_mlp/gymnax_pendulum` directory.
 
-NOTE: Use --run-length-modifier `long` option for longer/realistic training session.
+NOTE: Use `--run-length-modifier long` option for longer/realistic training session.
 
 ### Example: Running a Quantum RL Experiment
 
