@@ -47,6 +47,8 @@ singularity build hyperlax.sif singularity.def
 
 Note on Singularity Installation: Official installation guides may list outdated dependencies for modern Linux distributions (e.g., Ubuntu 22.04+). If you encounter issues (e.g., regarding =fuse=), we recommend consulting the [SingularityCE GitHub Releases](https://github.com/sylabs/singularity/releases) page for the latest packages and platform-specific instructions.
 
+If you want to have pre-built singularity image used to develop and test, you can download from [zenodo.org/records/17426400](https://zenodo.org/records/17426400).
+
 ## Quick Start
 
 Run a quick, small-scale hyperparameter sweep for a classical PPO agent with an MLP policy on the Pendulum environment. This command will train 4 different hyperparameter configurations in a single vectorized run.
