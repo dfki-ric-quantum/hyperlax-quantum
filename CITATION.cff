@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Bolat"
+  given-names: "Ugur"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "Benchmarking Classical and Quantum Reinforcement Learning Algorithms with JAX"
+version: 0.0.1
+doi: doi: 10.5281/zenodo.17426400
+date-released: 2024-10-20
+url: "https://github.com/dfki-ric-quantum/hyperlax-quantum"
