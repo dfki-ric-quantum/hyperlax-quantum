@@ -247,6 +247,19 @@ pytest tests/
 
 See [CONTRIBUTING](./CONTRIBUTING.md) for details.
 
+## Citation
+
+```bibtex
+@software{bolat_hyperlax_quantum_2025,
+    author = {Bolat, Ugur},
+    doi = {10.5281/zenodo.17426400},
+    month = {10},
+    title = {{Benchmarking Classical and Quantum Reinforcement Learning Algorithms with JAX}},
+    url = {https://github.com/dfki-ric-quantum/hyperlax-quantum},
+    version = {0.0.1},
+    year = {2025}
+}
+```
 
 ## Releases
 
