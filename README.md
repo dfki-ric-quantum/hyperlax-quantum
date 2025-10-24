@@ -4,7 +4,6 @@ _hyperlax_ is a unified JAX-based framework for high-throughput reinforcement le
 
 By leveraging `jax.vmap` and `jax.pmap` across hyperparameter configurations, hyperlax allows for direct, fair, and efficient performance comparisons between different model families (e.g., MLP vs. PQC) on the same hardware, speeding up the research cycle.
 
-
 ## Installation
 
 
@@ -242,6 +241,13 @@ Thanks to the broader open-source research community for advancing transparent, 
 ```bash
 pytest tests/
 ```
+
+## Limitations and Open Issues
+
+- Vectorized/Batched hyperparameter computation is supported for algorithmic hyperparameters: both scalar (e.g., learning rates) and structural (e.g., rollout length) but not for function approximation related parameters (e.g., hidden dimensions). An experimental vectorized MLP implementation is available as a reference (see parametric_torso.py).
+- In `dqn-drpqc_gymnax.acrobot`, 9 out of 64 Acrobot samples trigger JAX’s `XlaRuntimeError: INTERNAL: ptxas exited`, indicating a possible synchronization issue in the multi-GPU setup. This issue was not further investigated.
+- `tmlp` models are highly sensitive to specific learning rates; causin gradient explosions leading.
+- The current parameterized quantum circuit implementation, combined with the JAX-backed PennyLane version used, results in long JIT compilation times, likely due to non-JAX-compatible components in PennyLane. Interested researchers may explore the [PennyLaneAI/catalyst](https://github.com/PennyLaneAI/catalyst) project for potential JIT and execution improvements, though this has not been tested here.
 
 ## Contributing
 
